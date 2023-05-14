@@ -1,0 +1,98 @@
+class DoubleLinkedList {
+    Node head = null;
+    Node tail = null;
+
+    class Node {
+        int data;
+        Node prev;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+
+    public void addLast(int data) {
+        Node newNode = new Node(data);
+        if (head == null && tail == null) {
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+    }
+
+    public void display() {
+        if (head == null) {
+            System.out.println("The linked list does not exist.");
+        } else {
+            Node current = head;
+            while (current != null) {
+                System.out.println(current.data);
+                current = current.next;
+            }
+        }
+    }
+
+    public void reverse() {
+        Node current = head;
+        Node temp = null;
+
+        while (current != null) {
+            // Swapping the prev and next pointers
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+
+            // Moving to the next node
+            current = current.prev;
+        }
+
+        // Updating the head pointer
+        if (temp != null) {
+            head = temp.prev;
+        }
+    }
+    
+    public void sort()
+    {
+        Node curr=head;
+        while(curr!=null)
+        {
+            Node index=curr.next;
+            while(index!=null)
+            {
+                if(curr.data>index.data)
+                {
+                    int d=curr.data;
+                    curr.data=index.data;
+                    index.data=d;
+                }
+                index=index.next;
+            }
+            curr=curr.next;
+        }
+        
+    }
+
+    public static void main(String args[]) {
+        DoubleLinkedList dll = new DoubleLinkedList();
+        dll.addLast(1);
+        dll.addLast(2);
+        dll.addLast(3);
+        dll.addLast(4);
+
+        System.out.println("The elements in the linked list are:");
+        dll.display();
+
+        dll.reverse();
+
+        System.out.println("The elements in the linked list in reverse order are:");
+        dll.display();
+        dll.sort();
+        dll.display();
+    }
+}
